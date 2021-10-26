@@ -1,0 +1,61 @@
+﻿@using exp_4_Models.Models
+@model List<Category>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6"><h2> Category List</h2></div>
+            <div class="col-6"><a href="/category/add" class="btn btn-success float-right">Kategori ekle</a></div>
+        </div>
+
+        @if (TempData["Mesaj"] != null)
+        {
+            <div id="alertBox" class="alert alert-danger" role="alert">
+                @TempData["Mesaj"]
+            </div>
+        }
+
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <tehad>
+                <tr>
+                    <th>Kategori Id</th>
+                    <th>Kategori Adı</th>
+                    <th>Açıklama</th>
+                    <th colspan="2">İşlemler</th>
+                </tr>
+            </tehad>
+            <tbody> 
+                @if (Model != null && Model.Any()) //eğer null değilse ve modelin içinde bişi varsa.
+                {
+                    foreach (var category in Model)
+                    {
+                <tr>
+                    <td>@category.CategoryID</td>
+                    <td>@category.CategoryName</td>
+                    <td>@category.Description</td>
+                    <td><a class="btn btn-warning" title="Düzenle" href="/category/edit/@category.CategoryID"><i class="fa fa-edit"></i></a></td>
+                    <td><a class="btn btn-danger" title="Sil" href="/category/delete/@category.CategoryID"><i class="fa fa-trash"></i></a></td>
+                </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">Listede hiçbir veri bulunmamaktadır</td>
+                    </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
