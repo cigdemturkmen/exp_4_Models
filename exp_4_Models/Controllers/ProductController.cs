@@ -9,17 +9,17 @@ namespace exp_4_Models.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly NorthwindDbContext _dbContext;
+        private readonly NorthwindDbContext db;
 
         public ProductController()
         {
-            _dbContext = new NorthwindDbContext();
+            db = new NorthwindDbContext();
         }
 
         public ActionResult List()
         {
-            //instance almasak da geliyor liste?
-            var products = _dbContext.Products.ToList();
+            
+            var products = db.Products.ToList();
             return View(products);
         }
 
@@ -33,9 +33,9 @@ namespace exp_4_Models.Controllers
         public ActionResult Add(Product model)
         {
             //TODO 
-            _dbContext.Products.Add(model);
+            db.Products.Add(model);
             return RedirectToAction("List");
-            _dbContext.SaveChanges();
+            db.SaveChanges();
         }
 
         //public ActionResult Edit()

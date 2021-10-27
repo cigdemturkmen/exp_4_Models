@@ -11,15 +11,16 @@ namespace exp_4_Models.Controllers
     {
         // readonly: proje çalıştığında değeri birkez set edilebilir, sonrasında değer değiştirilemez. yalnızca bir kez instance alınmasını sağlar.
 
-        private readonly NorthwindDbContext _dbContext;  // dbContext field'ı tanımlayıp constructor'da setledik.
+        private readonly NorthwindDbContext db;  // dbContext field'ı tanımlayıp constructor'da setledik.
 
         public CategoryController()
         {
-            _dbContext = new NorthwindDbContext();
+            db = new NorthwindDbContext();
         }
+
         public ActionResult List()
         {
-            NorthwindDbContext db = new NorthwindDbContext();
+            //NorthwindDbContext db = new NorthwindDbContext();
             var categories = db.Categories.ToList();
             return View(categories);
         }
@@ -40,11 +41,11 @@ namespace exp_4_Models.Controllers
             }
 
             // iş kuralı
-            if (!_dbContext.Categories.Any(x => x.CategoryName.ToLower() == model.CategoryName.ToLower()))//aynı ktgri ismi yoksa ekle
+            if (!db.Categories.Any(x => x.CategoryName.ToLower() == model.CategoryName.ToLower()))//aynı katgori ismi yoksa ekle
             {
-                _dbContext.Categories.Add(model);
+                db.Categories.Add(model);
 
-                var sonuc = _dbContext.SaveChanges();
+                var sonuc = db.SaveChanges();
 
                 if (sonuc > 0)
                 {
@@ -62,36 +63,49 @@ namespace exp_4_Models.Controllers
 
         public ActionResult Edit(int id)
         {
-            var category = _dbContext.Categories.FirstOrDefault(x => x.CategoryID == id);
-            return View(category);
+            var category = db.Categories.FirstOrDefault(x => x.CategoryID == id);
+            if (category != null) // kullanıcı çubuğa eliyle başka bir ID değeri girebilir ve category null gelebilir.
+            {
+                return View(category);
+            }
+
+            //kullanıcıya mesaj gönderebilirsiniz
+            return null;
+            
         }
 
         [HttpPost]
         public ActionResult Edit(Category model)
         {
             
-            var category = _dbContext.Categories.FirstOrDefault(x => x.CategoryID == model.CategoryID);
+            var category = db.Categories.FirstOrDefault(x => x.CategoryID == model.CategoryID);
 
-            if (category != null) //category null geliyor
+            if (category != null) //category null geliyor eğer edit cshtml'de hidden olarak ID yapmazsan.
             {
                 category.CategoryName = model.CategoryName;
                 category.Description = model.Description;
+
+                var sonuc = db.SaveChanges();
+
+                if (sonuc > 0)
+                {
+                    return RedirectToAction("List");
+                }
             }
 
-            _dbContext.SaveChanges();
-
-            return RedirectToAction("List");  
+            //kategori bulunamadı diye kullanıcıya bilgi gönderebilrisiniz.
+            return null;
         }
 
         public ActionResult Delete(int id)
         {
-            var category = _dbContext.Categories.FirstOrDefault(x => x.CategoryID == id);
+            var category = db.Categories.FirstOrDefault(x => x.CategoryID == id);
 
             if (category != null)
             {
-                _dbContext.Categories.Remove(category);
+                db.Categories.Remove(category);
 
-                int sonuc = _dbContext.SaveChanges();
+                int sonuc = db.SaveChanges();
 
                     if (sonuc >0)
                 {

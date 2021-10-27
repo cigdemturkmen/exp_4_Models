@@ -1,0 +1,61 @@
+﻿@using exp_4_Models.Models
+@model List<Shipper>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6"><h2> Shipper List</h2></div>
+            <div class="col-6"><a href="/shipper/add" class="btn btn-success float-right">Shipper ekle</a></div>
+        </div>
+
+        @if (TempData["Mesaj"] != null)
+        {
+            <div id="alertBox" class="alert alert-danger" role="alert">
+                @TempData["Mesaj"]
+            </div>
+        }
+
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Shipper Id</th>
+                    <th> Shipper Adı</th>
+                    <th>Telefon </th>
+                    <th colspan="2">İşlemler </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var shipper in Model)
+                    {
+                        <tr>
+                            <td>@shipper.ShipperID</td>
+                            <td>@shipper.CompanyName</td>
+                            <td>@shipper.Phone</td>
+                            <td><a href="/shipper/edit/@shipper.ShipperID">Düzenle</a></td>
+                            <td><a href="/shipper/delete/@shipper.ShipperID">Sil</a></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">Listede hiçbir veri bulunmamaktadır</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

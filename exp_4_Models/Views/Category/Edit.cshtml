@@ -7,6 +7,13 @@
 
 <h2>Kategori Düzenle</h2>
 
+@*@if (ViewBag.Mesaj != null)
+{
+<div id="alert-box" class="alert alert-danger" role="alert">
+    @ViewBag.Mesaj
+</div>
+}*@
+
 @using (Html.BeginForm("Edit", "Category", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -24,5 +31,5 @@
         @Html.ValidationMessageFor(x => x.Description, "", htmlAttributes: new { @class = "text-danger" })
     </div>
 
-    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
 }

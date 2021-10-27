@@ -1794,12 +1794,14 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShipperController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\NorthwindDbContext.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Shipper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1962,6 +1964,9 @@
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Shipper\List.cshtml" />
+    <Content Include="Views\Shipper\Add.cshtml" />
+    <Content Include="Views\Shipper\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

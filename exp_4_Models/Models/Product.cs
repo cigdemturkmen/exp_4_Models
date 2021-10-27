@@ -22,7 +22,7 @@ namespace exp_4_Models.Models
         public short UnitsInStock { get; set; }
 
         [DisplayName("Kategori Id/Adı?")]
-        public int CategoryId { get; set; }
+        public int? CategoryID { get; set; }
         public Category Category { get; set; }
     }
 }
