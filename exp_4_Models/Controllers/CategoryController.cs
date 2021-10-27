@@ -40,7 +40,7 @@ namespace exp_4_Models.Controllers
             }
 
             // iş kuralı
-            if (!_dbContext.Categories.Any(x => x.CategoryName.ToLower() == model.CategoryName.ToLower()))
+            if (!_dbContext.Categories.Any(x => x.CategoryName.ToLower() == model.CategoryName.ToLower()))//aynı ktgri ismi yoksa ekle
             {
                 _dbContext.Categories.Add(model);
 
@@ -57,20 +57,31 @@ namespace exp_4_Models.Controllers
                 return View(model); // return View("Add", model);
             }
             
-                return null;
-            
+                return null;      
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            return View();
+            var category = _dbContext.Categories.FirstOrDefault(x => x.CategoryID == id);
+            return View(category);
         }
 
-        //[HttpPost]
-        //public ActionResult Edit()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public ActionResult Edit(Category model)
+        {
+            
+            var category = _dbContext.Categories.FirstOrDefault(x => x.CategoryID == model.CategoryID);
+
+            if (category != null) //category null geliyor
+            {
+                category.CategoryName = model.CategoryName;
+                category.Description = model.Description;
+            }
+
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("List");  
+        }
 
         public ActionResult Delete(int id)
         {
@@ -84,7 +95,7 @@ namespace exp_4_Models.Controllers
 
                     if (sonuc >0)
                 {
-                    TempData["Mesaj"] = "Silindi!";
+                    TempData["Mesaj"] = "Silme işlemi gerçekleşti!";
 
                     return RedirectToAction("List");
                 }

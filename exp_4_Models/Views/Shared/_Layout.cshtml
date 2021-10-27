@@ -430,6 +430,15 @@
 
     <!-- Custom scripts for all pages-->
     <script src="~/Content/js/sb-admin-2.min.js"></script>
+
+    <script>
+        $(function () {
+            setTimeout(function () {
+                $(`#alertBox`).hide();
+            }, 5000);
+        });
+    </script>
+
     @RenderSection("scripts", false)
 </body>
 
