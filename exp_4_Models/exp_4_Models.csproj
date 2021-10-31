@@ -1967,6 +1967,7 @@
     <Content Include="Views\Shipper\List.cshtml" />
     <Content Include="Views\Shipper\Add.cshtml" />
     <Content Include="Views\Shipper\Edit.cshtml" />
+    <Content Include="Views\Shipper\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

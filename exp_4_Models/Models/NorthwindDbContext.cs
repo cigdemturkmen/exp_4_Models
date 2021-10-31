@@ -10,8 +10,8 @@ namespace exp_4_Models.Models
     {
         public NorthwindDbContext()
         {
-            this.Database.Connection.ConnectionString = "Server=.;Database=Northwind;User Id=sa;Password=123;";
-            //this.Database.Connection.ConnectionString = "Server=.;Database=Northwind;User Id=sa;Password=Password1;";
+            //this.Database.Connection.ConnectionString = "Server=.;Database=Northwind;User Id=sa;Password=123;";
+            this.Database.Connection.ConnectionString = "Server=.;Database=Northwind;User Id=sa;Password=Password1;";
         }
 
         public DbSet<Category> Categories { get; set; }

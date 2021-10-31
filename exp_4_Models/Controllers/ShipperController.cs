@@ -112,5 +112,18 @@ namespace exp_4_Models.Controllers
 
             return null;
         }
+
+        public ActionResult Test()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Test(string mesaj)
+        {
+            mesaj = TempData["veri"].ToString();
+            return View();
+        }
     }
 }

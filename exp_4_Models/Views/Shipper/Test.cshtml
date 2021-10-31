@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test</h2>
+
+@{ 
+    TempData["veri"] = 123;
+}
+
+@using (Html.BeginForm("Test","Shipper",FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    @Html.TextBox("name");
+    
+    <button type="submit">go to post action method</button>
+
+}
